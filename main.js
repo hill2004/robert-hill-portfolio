@@ -154,4 +154,109 @@ if (contactForm && formStatus) {
 
 }
 
+// DARK MODE TOGGLE
+
+const themeToggle = document.getElementById("theme-toggle");
+const themeIcon = themeToggle.querySelector("i");
+
+// Restore saved theme
+if (localStorage.getItem("portfolio-theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeIcon.classList.replace("bx-moon", "bx-sun");
+    themeToggle.setAttribute("aria-label", "Switch to light mode");
+}
+
+themeToggle.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark-mode");
+
+    const isDark = document.body.classList.contains("dark-mode");
+
+    if (isDark) {
+        themeIcon.classList.replace("bx-moon", "bx-sun");
+        themeToggle.setAttribute("aria-label", "Switch to light mode");
+        localStorage.setItem("portfolio-theme", "dark");
+    } else {
+        themeIcon.classList.replace("bx-sun", "bx-moon");
+        themeToggle.setAttribute("aria-label", "Switch to dark mode");
+        localStorage.setItem("portfolio-theme", "light");
+    }
+
+});
+
+// ANIMATED TYPING EFFECT
+
+const typingText = document.querySelector(".typing-text");
+
+const words = [
+    "Web Developer",
+    "Graphic Designer",
+    "Programmer",
+    "Statistics Enthusiast"
+];
+
+let wordIndex = 0;
+let characterIndex = 0;
+let deleting = false;
+
+function typeEffect() {
+
+    if (!typingText) return;
+
+    const currentWord = words[wordIndex];
+
+    if (deleting) {
+        characterIndex--;
+    } else {
+        characterIndex++;
+    }
+
+    typingText.textContent = currentWord.substring(0, characterIndex);
+
+    let speed = deleting ? 60 : 120;
+
+    if (!deleting && characterIndex === currentWord.length) {
+        deleting = true;
+        speed = 1500;
+    } else if (deleting && characterIndex === 0) {
+        deleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        speed = 400;
+    }
+
+    setTimeout(typeEffect, speed);
+}
+
+if (typingText) {
+    typeEffect();
+}
+
+/* BACK TO TOP BUTTON */
+
+const backToTop = document.getElementById("back-to-top");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        backToTop.classList.add("active");
+    } else {
+        backToTop.classList.remove("active");
+    }
+});
+
+/* WEBSITE PRELOADER */
+
+window.addEventListener("load", function () {
+
+    const preloader = document.getElementById("preloader");
+
+    if (preloader) {
+        preloader.classList.add("hide");
+
+        setTimeout(() => {
+            preloader.style.display = "none";
+        }, 600);
+    }
+
+});
+
 
