@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hill2004.github.io/robert-hill-portfolio/sitemap.xml
